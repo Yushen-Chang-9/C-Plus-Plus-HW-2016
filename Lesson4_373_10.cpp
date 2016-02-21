@@ -6,85 +6,90 @@
 //  Copyright (c) 2016 yushen chang. All rights reserved.
 //
 
-//This program reads popular names of 2012
+//This program will read a name from a text file and then display it on the screen
 
 //Headers
 #include <iostream>
-#include <fstream>
-#include <iomanip>
 #include <string>
-#include <cstdlib>
-#include <cmath>
+#include <fstream>
 using namespace std;
 
 
+void name_search (string);
 
 
-
-
-string name_search(string);
-
-int main()
+//Main: Start
+int main ()
 {
+    //Variables
 	string name;
-	char answer;
+	char choice;
     
 	do
 	{
-        cout << "This program will search for  1000 of the most popular names of 2012 for male and female."<<endl;
-        cout << "Enter the name you would like to search for: " << endl;
-        cin >> name;
+        //The search of names for some year
+        cout << "This program will search for top male and female names out of 1000." << endl;
+		
+		cout << "Enter the name you would like to search for: ";
+		cin >> name; //Please enter first letter a uppercase, because this is case sensitive.
         
-        name_search (name);
+		name_search (name);
         
-        cout << "Press 'y' or 'Y' to repeat search otherwise press any key to exit." << endl;
-        cin >> answer;
+        //Repeat Program
+		cout << "Press 'y' or 'Y' to repeat or anyother key to exit." << endl;
+		cin >> choice;
 	}
-	while (answer == 'y' || answer == 'Y');
+	while (choice == 'y' || choice == 'Y');
     
 	return 0;
-}
+} //Main: End
 
 
-string name_search (string name)
+
+//Void: Start
+void name_search (string name)
 {
-    int rank;
-    string male, female;
-    ifstream infile;
+	int rank;
+	string male, female;
+	ifstream infile;
+	bool male_name_found=false,female_name_found=false;
     
-    infile.open ("babynames2012.txt");
+	infile.open ("babynames2012.txt");
     
-    if (infile.fail())
-    {
-        cout << "There were some issues with the file please check for existence."<< endl;
-    }
+	if (infile.fail())
+	{
+		cout << "There was an error while search for the file please check existence of file.txt." << endl;
+	}
     
-    
-    while (!infile.eof())
-    {
-        infile >> rank >> male >> female;
+	while (!infile.eof())
+	{
+		infile >> rank >> male >> female;
+		
         
-        if (name == male)
-        {
-            cout << name << " is ranked " << rank << " in popularity among boys"  << endl;
-            break;
-        }
-        else
-        {
-            cout << name << " is not ranked among the top 1000 boys names." << endl;
-            break;
-        }
-        if (name == female)
-        {
-            cout << name << " is ranked " << rank << " in popularity among girls." << endl;
-            break;
-        }
-        else
-        {
-            cout << name << "is not ranked among the top 1000 girl names." << endl;
-            break;
-        }
-    }
-    return name;
+		if(name == male && name != female)//Existence of male name, but not female name.
+		{
+			cout << name << " is ranked " << rank << " in popularity among boys." << endl;
+			male_name_found=true;
+		}
+		else if(name != male && name == female)//Existence of female name, but not male name.
+		{
+			cout << name << " is ranked " << rank << " in popularity among girls."<< endl;
+			female_name_found=true;
+		}
+		else if (name == male && name == female)//Existence of both genders.
+		{
+			cout << name << " is ranked " << rank << " in popularity among boys." << endl;
+			cout << name << " is ranked " << rank << " in popularity among girls." <<endl;
+			male_name_found=true;
+			female_name_found=true;
+		}
+		
+	}
+	//No Existence of names for both genders.
+    if(male_name_found==false)
+		cout<<"Name not listed among 1000 male names"<<endl;
+	if(female_name_found==false)
+		cout<<"Name not listed among 1000 female names"<<endl;
+	infile.close();
 }
 

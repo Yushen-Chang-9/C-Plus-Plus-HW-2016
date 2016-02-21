@@ -1,0 +1,3 @@
+Always know what your program is required to do before
+you begin writing any lines of code.
+
