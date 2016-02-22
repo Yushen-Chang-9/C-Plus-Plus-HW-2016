@@ -1,8 +1,8 @@
 //
 //  main.cpp
-//  01-104-02
+//  lesson1-104-2
 //
-//  Created by Yushen Chang on 1/24/16.
+//  Created by Yushen Chang on 1/30/16.
 //  Copyright (c) 2016 frcc. All rights reserved.
 //
 
@@ -37,7 +37,7 @@ int main()
         
         count-=1;
     }
-   
+    
     
     
     cout << "The sqaure root of "<< n << " is " << answer_n << endl;
@@ -47,4 +47,3 @@ int main()
     return 0;
     
 }
-
