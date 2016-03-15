@@ -4,8 +4,8 @@
 //Created by Yushen Chang on 3/1/16.
 //Copyright (c) 2016 yushen chang. All rights reserved.
 //
-//My Test Homework
-//This where I test my crappy programing skills
+//My Test Homework chapter 10 project 1
+//This where I test my bad programing skills
 //Lots of trial and error
 //Brought you by Carl's Jr!
 //Library of stuff

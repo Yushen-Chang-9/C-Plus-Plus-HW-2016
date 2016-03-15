@@ -4,15 +4,14 @@
 //
 //  Created by Yushen Chang on 3/4/16.
 //  Copyright (c) 2016 yushen chang. All rights reserved.
-//
+//This program lets you do math for fractions
 
-//Homework 2 chapter 10 testing program
-//Remember that plenty of tard live kick ass lives and that my first wife was tarded, but she's a piolit now.
+
 #include <iostream>
 #include <cmath>
-#include <fstream>
 #include <cstdlib>
 using namespace std;
+
 class rational
 {
 public:
@@ -30,16 +29,17 @@ public:
     rational Mul (rational otherFraction);
     rational Div (rational otherFraction);
     bool less(rational otherFraction);
+    bool eq(rational otherFraction);
 private:
     float numerator;
     float denominator;
 };
 
 
-
+//Start of main
 int main()
-{   float num;
-    float den;
+{
+    
     rational num1;
     rational num2;
     rational result;
@@ -47,8 +47,12 @@ int main()
     bool error;
     num1.input(cin);
     num2.input(cin);
+    
     do{
-        do{
+        //Do While Loop for other options
+        do {
+            //Do While Loop for display
+            //Display of Options
             error=false;
             cout<<"Enter a number from 1 to 7\n"
             << "1. Displays the sum of the two fractions\n"
@@ -61,17 +65,18 @@ int main()
             << "8. Exit\n";
             cin>>choice;
             if(choice<1||choice>8)
-            {cout << "Invalid entry\n" ;
+            {
+                cout << "Invalid entry\n" ;
                 error=true;
             }
-        }while(error);
+        }while(error); //End of Do While for display options
         
         cout << endl;
         
         
-        switch (choice)
+        switch (choice) //Giving User Options for Calculations from choices 1-8
         {
-            case 1: // Sum of the two fractions
+            case 1: // ADDITION
                 cout<<endl;
                 num1.output(cout);
                 cout<<" + ";
@@ -81,7 +86,7 @@ int main()
                 result.output(cout);
                 cout<<endl;
                 break;
-            case 2: // The Difference
+            case 2: // SUBTRACT
                 num1.output(cout);
                 cout<<" - ";
                 num2.output(cout);
@@ -90,7 +95,7 @@ int main()
                 result.output(cout);
                 cout<<endl;
                 break;
-            case 3: // The Product
+            case 3: // MULTIPLY
                 num1.output(cout);
                 cout<<" * ";
                 num2.output(cout);
@@ -99,7 +104,7 @@ int main()
                 result.output(cout);
                 cout<<endl;
                 break;
-            case 4: // The Quotient
+            case 4: // DIVISION
                 num1.output(cout);
                 cout<<" / ";
                 num2.output(cout);
@@ -108,26 +113,39 @@ int main()
                 result.output(cout);
                 cout<<endl;
                 break;
-            case 5: if(num1.less(num2))
-            {num1.output(cout);
+            case 5: //LESS THAN, GREATER THAN, OR EQUAL
+                if(num1.less(num2))
+                {
+                num1.output(cout);
                 cout<<"<";
                 num2.output(cout);
                 cout<<endl;
-            }
+                }
+                else if(num1.eq(num2))
+                {
+                    num1.output(cout);
+                    cout << " is equal to ";
+                    num2.output(cout);
+                    cout << "." << endl;
+                }
             else
-            {num1.output(cout);
+                {
+                num1.output(cout);
                 cout<<">=";
                 num2.output(cout);
                 cout<<endl;
-            }
+                }
+               
                 break;
-            case 6: result=num1.neg();
+            case 6: //COMPUTES NEGATIVES OF FIRST FRACTION
+                result=num1.neg();
                 cout<<"negative of ";
                 num1.output(cout);
                 cout<<"=";
                 result.output(cout);
                 cout<<endl;
-            case 7: num1.input(cin);
+            case 7:
+                num1.input(cin);
                 num2.input(cin);
                 break;
             case 8:
@@ -139,40 +157,59 @@ int main()
     
 }
 bool rational::less(rational otherFraction)
-{if(numerator*otherFraction.denominator<otherFraction.numerator*denominator)
+{
+    if(numerator*otherFraction.denominator<otherFraction.numerator*denominator)
     return true;
 else
     return false;
 }
+
+bool rational::eq(rational otherFraction)
+{
+ 
+    if (otherFraction.numerator == numerator && otherFraction.denominator == denominator)
+    {
+        return true;
+    }
+    else return false;
+    
+}
 rational rational::neg()
-{rational negative;
+{
+    rational negative;
     negative.numerator=numerator*-1;
     negative.denominator=denominator;
     return negative;
 }
 
 void rational::output(ostream& outstream)
-{cout<<numerator<<"/"<<denominator<<" ";}
+{
+    cout<<numerator<<"/"<<denominator<<" ";
+}
 
 void rational::input(istream& instream)
-{char choice,slash,trash;
+{
+    char choice,slash,trash;
     cout<<"Enter a fraction: ";
     do{
         cin>>numerator>>slash>>denominator;
         if(denominator==0)
             cout<<"Illegal denominator - retry\n";
-    }while(denominator==0);
+    }
+    while(denominator==0);
     trash=getchar();
     if(numerator<0&&denominator<0)
-    {numerator*=-1;
+    {
+        numerator*=-1;
         denominator*=-1;
     }
     else if(numerator>=0&&denominator<0)
-    {numerator*=-1;
+    {
+        numerator*=-1;
         denominator*=-1;
     }
 }
-rational::rational() // defaultructor
+rational::rational() // default constructor
 {
     
     numerator = 0;
